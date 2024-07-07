@@ -1,4 +1,4 @@
-#include "include/ArraysHashing/containsDuplicate.h"
+#include "ArraysHashing/containsDuplicate.h"
 
 bool containsDuplicate(std::vector<int> &nums)
 {
