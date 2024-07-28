@@ -31,5 +31,8 @@
 *.out
 *.app
 
-#CMake Build Directory
+# CMake Build Directory
 build/
+
+# VSCode Settings
+.vscode/

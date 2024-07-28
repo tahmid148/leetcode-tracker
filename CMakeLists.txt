@@ -2,6 +2,10 @@ cmake_minimum_required(VERSION 3.10)
 
 project(LeetcodeTracker VERSION 1.0)
 
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+
+set(CMAKE_CXX_STANDARD 17)
+
 # Add the include directory for global includes
 include_directories(include)
 
