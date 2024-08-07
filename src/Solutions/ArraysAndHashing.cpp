@@ -1,11 +1,8 @@
-#include "ArraysHashing/containsDuplicate.h"
-#include <unordered_set>
+#include "ArraysAndHashing.h"
 
-bool containsDuplicate(std::vector<int> &nums)
-{
+bool ArraysHashing::containsDuplicate(const std::vector<int>& nums) {
     std::unordered_set<int> numSet;
-
-    for (auto& num : nums) {
+    for (int num : nums) {
         if (numSet.find(num) != numSet.end()) {
             return true;
         }
@@ -13,3 +10,4 @@ bool containsDuplicate(std::vector<int> &nums)
     }
     return false;
 }
+

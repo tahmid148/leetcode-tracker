@@ -1,22 +1,43 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.14)
+project(LeetcodeTracker)
 
-project(LeetcodeTracker VERSION 1.0)
+# GoogleTest requires at least C++14
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(CMAKE_CXX_STANDARD_REQUIRED True)
-
-set(CMAKE_CXX_STANDARD 17)
-
-# Add the include directory for global includes
+# Include directories
 include_directories(include)
 
-# Add the subdirectory for ArraysHashing module
-add_subdirectory(src/ArraysHashing)
+# FetchContent module to get GoogleTest
+include(FetchContent)
+FetchContent_Declare(
+  googletest
+  URL https://github.com/google/googletest/archive/refs/heads/main.zip
+  DOWNLOAD_EXTRACT_TIMESTAMP TRUE
+)
+# For Windows: Prevent overriding the parent project's compiler/linker settings
+FetchContent_MakeAvailable(googletest)
 
-# Main executable
-add_executable(Main src/main.cpp)
+# Gather all solution files
+file(GLOB SOLUTION_SOURCES "src/Solutions/*.cpp")
 
-# Link the ArraysHashing library to the Main executable
-target_link_libraries(Main PRIVATE ArraysHashing)
+# Add library for solutions
+add_library(SolutionsLib ${SOLUTION_SOURCES})
 
-# Optionally, include PROJECT_BINARY_DIR if necessary
-# target_include_directories(Main PUBLIC "${PROJECT_BINARY_DIR}")
+# Add main executable
+add_executable(MainExecutable src/main.cpp)
+target_link_libraries(MainExecutable SolutionsLib)
+
+# Enable testing
+enable_testing()
+
+# Gather all test files
+file(GLOB TEST_SOURCES "UnitTests/*.cc")
+
+# Add test executable
+add_executable(UnitTests ${TEST_SOURCES})
+target_link_libraries(UnitTests SolutionsLib GTest::gtest_main)
+
+# Discover and run tests
+include(GoogleTest)
+gtest_discover_tests(UnitTests)
